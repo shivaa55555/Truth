@@ -1,0 +1,43 @@
+workflows:
+  truth-spice-android:
+    name: Truth Spice Android
+    environment:
+      groups:
+        # Add your environment groups here if needed
+      flutter: stable
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+      - name: Run tests
+        script: |
+          flutter test
+      - name: Build Android APK
+        script: |
+          flutter build apk --release
+      - name: Build Android App Bundle
+        script: |
+          flutter build appbundle --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com  # Replace with your email
+        notify:
+          success: true
+          failure: true
+
+# Trigger on push to main branch
+triggering:
+  events:
+    - push
+  branch_patterns:
+    - pattern: 'main'
+      include: true
+      source: true
+
+cache:
+  cache_paths:
+    - ~/.pub-cache

@@ -1,0 +1,22 @@
+# analysis_options.yaml
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+  
+  errors:
+    missing_required_param: error
+    missing_return: error
+    unnecessary_getters_setters: error
+
+# Enable the core lints from the Dart team
+linter:
+  rules:
+    - always_declare_return_types
+    - always_require_non_null_named_parameters
+    - annotate_overrides
+    - avoid_init_to_null
+    - avoid_return_types_on_setters
+    - avoid_unused_constructor_parameters
+    - prefer_const_constructors
+    - prefer_const_declarations
