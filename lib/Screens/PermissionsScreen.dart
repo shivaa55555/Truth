@@ -1,7 +1,7 @@
-// File: lib/screens/permissions_screen.dart
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// REMOVE Firebase imports
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'homescreen.dart';
 
 class PermissionsScreen extends StatefulWidget {
@@ -30,23 +30,27 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Anonymous Firebase Auth
-      final userCredential = await FirebaseAuth.instance.signInAnonymously();
-      final user = userCredential.user;
+      // REMOVE Firebase Auth code
+      // final userCredential = await FirebaseAuth.instance.signInAnonymously();
+      // final user = userCredential.user;
 
-      if (user != null) {
-        // Create user profile in Firestore
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          'uid': user.uid,
-          'createdAt': FieldValue.serverTimestamp(),
-          'permissions': {
-            'mic': _micGranted,
-            'notifications': _notificationsGranted,
-          },
-          'theme': 'system', // default theme
-        });
-      }
+      // REMOVE Firestore code
+      // if (user != null) {
+      //   await FirebaseFirestore.instance
+      //       .collection('users')
+      //       .doc(user.uid)
+      //       .set({
+      //     'uid': user.uid,
+      //     'createdAt': FieldValue.serverTimestamp(),
+      //     'permissions': {
+      //       'mic': _micGranted,
+      //       'notifications': _notificationsGranted,
+      //     },
+      //     'theme': 'system',
+      //   });
+      // }
 
+      // Simply navigate to HomeScreen without Firebase
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -55,7 +59,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
+        SnackBar(content: Text('Setup completed: $e')),
       );
     }
 
