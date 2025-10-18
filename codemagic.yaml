@@ -4,12 +4,15 @@ workflows:
     environment:
       flutter: stable
     scripts:
+      - name: Create iOS directory (fix xcodeproj error)
+        script: |
+          mkdir -p ios
       - name: Get Flutter packages
         script: |
           flutter pub get
       - name: Build Android APK
         script: |
-          flutter build apk --release
+          flutter build apk --release --no-tree-shake-icons
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
     publishing:
@@ -20,7 +23,6 @@ workflows:
           success: true
           failure: true
 
-# iOS build disable कर - तुला फक्त Android हवं आहे
 triggering:
   events:
     - push
